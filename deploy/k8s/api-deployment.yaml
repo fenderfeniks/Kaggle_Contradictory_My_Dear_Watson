@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-dear-watson-api
+  namespace: ml-pipelines
+  labels:
+    app: my-dear-watson-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-dear-watson-api
+  template:
+    metadata:
+      labels:
+        app: my-dear-watson-api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: fastapi-server
+        image: my-company/kaggle_my_dear_watson:api-latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - secretRef:
+            name: my-dear-watson-api-secrets
+        - configMapRef:
+            name: my-dear-watson-api-config
+        # Kaggle credentials нужны API если он скачивает датасет при старте
+        env:
+        - name: KAGGLE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: my-dear-watson-api-secrets
+              key: KAGGLE_USERNAME
+        - name: KAGGLE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: my-dear-watson-api-secrets
+              key: KAGGLE_KEY
+        volumeMounts:
+        - name: model-weights
+          mountPath: /app/models
+        - name: data-volume
+          mountPath: /app/data
+        - name: logs-volume
+          mountPath: /app/logs
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: "2Gi"
+          limits:
+            cpu: "1"
+            memory: "4Gi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 15
+      volumes:
+      - name: model-weights
+        persistentVolumeClaim:
+          claimName: pvc-models
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: pvc-data
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: logs-pvc

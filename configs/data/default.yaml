@@ -1,0 +1,63 @@
+# configs/data/default.yaml
+
+# --- 1. Базовые параметры ---
+defaults:
+  - source: kaggle_dataset
+
+paths: ${paths}
+
+text_column: "premise"  
+text_pair_column: "hypothesis"   
+target_column: "label"   
+stratify_column: "label"
+max_length: 128
+val_split_size: 0.1
+
+num_classes: ${model_module.num_classes}
+seed: ${seed}
+
+preprocessing_num_workers: 4    
+preprocessing_batch_size: 1000  
+
+# --- 2. Пайплайн очистки ---
+cleaner:
+  _target_: src.core.data.cleaners.TextCleaningPipeline
+  cleaners:
+    - _target_: src.core.data.cleaners.MultilingualTextCleaner
+
+# --- 3. Коллатор ---
+collator:
+  _target_: src.core.data.collators.DynamicTextCollator
+  max_length: ${data.max_length}          
+  text_column: ${data.text_column}        
+  target_column: ${data.target_column}    
+
+# --- 4. Настройки DataLoader ---
+dataloader:
+  _target_: torch.utils.data.DataLoader
+  batch_size: 64
+  num_workers: 0
+  pin_memory: False
+
+# --- 5. Сам DataModule ---
+datamodule:
+  _target_: src.core.data.NLPDataModule
+
+# Стратегия балансировки
+balancing:
+  # Веса классов в loss (null = не использовать)
+  # "auto" = 1/frequency, или явный список [w0, w1]
+  class_weights: null
+  
+  # WeightedRandomSampler (null = не использовать)
+  sampler:
+    enabled: false
+    # replacement: true — с возвратом (oversampling эффект)
+    # replacement: false — без возврата (undersampling эффект)
+    replacement: false
+  
+  # Undersampling мажоритарного класса (null = не использовать)
+  undersampling:
+    enabled: false
+    # Целевое соотношение — 1.0 = полный баланс, 2.0 = 2:1
+    target_ratio: 2.0

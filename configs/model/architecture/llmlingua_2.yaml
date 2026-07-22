@@ -1,0 +1,7 @@
+# @package model
+
+model_name: "microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank"
+
+builder:
+  auto_model_class: "transformers.AutoModelForSequenceClassification"
+  dtype: "float32"

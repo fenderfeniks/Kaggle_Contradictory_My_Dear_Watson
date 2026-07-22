@@ -1,0 +1,44 @@
+# configs/main.yaml
+defaults:
+  - paths: default
+  - data: default
+  - model: default
+  - trainer: default
+  - logger: mlflow
+  - api: fastapi
+  - environment: local
+  - _self_
+
+# Глобальные параметры
+seed: 42
+project_name: "kaggle_my_dear_watson" # Обновлено под конкретную задачу
+
+# 1. Настройка оркестратора обучения (LightningModule)
+model_module:
+  _target_: src.training.module.NLPModel
+  num_classes: 3  
+  target_precision: null
+  target_recall: null
+
+  optimizer_cfg:
+    _target_: torch.optim.AdamW
+    _partial_: true
+    lr: 1e-3
+    weight_decay: 0.01
+
+# 2. Настройка DataModule
+datamodule:
+  _target_: src.core.data.NLPDataModule
+  _recursive_: false
+  data_cfg: ${data}
+
+
+inference:
+  threshold: 0.5
+
+# --- Настройка логирования и рабочей директории Гидры ---
+hydra:
+  run:
+    dir: ${paths.log_dir}/${project_name}/runs/${now:%Y-%m-%d}_${now:%H-%M-%S}
+  job:
+    chdir: True

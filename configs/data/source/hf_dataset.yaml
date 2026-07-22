@@ -1,0 +1,6 @@
+# configs/data/source/hf_dataset.yaml
+_target_: src.core.data.fetcher.RawDataFetcher
+source_type: "hf"
+raw_dir: "${paths.data_dir}/raw"
+dataset_name: "GonzaloA/my_dear_watson"
+token: ${oc.env:HF_TOKEN, null}

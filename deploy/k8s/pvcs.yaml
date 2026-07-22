@@ -1,0 +1,28 @@
+# 1. Данные
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-data
+  namespace: ml-pipelines
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+# 2. Логи и MLflow DB
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: logs-pvc
+  namespace: ml-pipelines
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

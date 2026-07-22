@@ -1,0 +1,23 @@
+# @package _global_
+environment:
+  name: "local"
+
+# Урезаем аппетиты трейнера для быстрых тестов кода
+trainer:
+  max_epochs: 3
+  accelerator: auto # Автоматический выбор CPU/MPS/GPU
+  precision: "32-true"
+  # Прогоняем только по 5-10 батчей за эпоху. Идеально для дебага!
+  limit_train_batches: 100
+  limit_val_batches: 20
+  limit_test_batches: 20
+
+# Снижаем нагрузку на процессор и оперативную память
+data:
+  max_length: 128 # Обрезаем длинные тексты
+  dataloader:
+    batch_size: 4
+    num_workers: 0 # Отключаем мультипроцессинг во избежание дедлоков в локальной ОС
+
+api:
+  log_level: DEBUG

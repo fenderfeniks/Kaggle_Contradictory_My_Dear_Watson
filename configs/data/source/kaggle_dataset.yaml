@@ -1,0 +1,5 @@
+_target_: src.core.data.fetcher.RawDataFetcher
+source_type: "kaggle"
+raw_dir: "${paths.data_dir}/raw"
+dataset_name: "contradictory-my-dear-watson"
+file_name: "train.csv"

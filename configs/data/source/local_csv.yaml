@@ -1,0 +1,6 @@
+# configs/data/source/local_csv.yaml
+_target_: src.core.data.fetcher.RawDataFetcher
+source_type: "local_csv"
+raw_dir: "${paths.data_dir}/raw"
+file_name: "_dataset.csv"
+sep: ","

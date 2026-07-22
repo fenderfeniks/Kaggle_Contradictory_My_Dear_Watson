@@ -1,0 +1,7 @@
+# @package model
+
+model_name: "OpenMed/privacy-filter-multilingual"
+
+builder:
+  auto_model_class: "transformers.AutoModelForSequenceClassification"
+  dtype: "float32"
