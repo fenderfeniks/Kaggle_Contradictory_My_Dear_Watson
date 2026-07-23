@@ -1,6 +1,6 @@
 # @package model
 
-model_name: "microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank"
+model_name: "tasksource/ModernBERT-large-nli"
 
 builder:
   auto_model_class: "transformers.AutoModelForSequenceClassification"

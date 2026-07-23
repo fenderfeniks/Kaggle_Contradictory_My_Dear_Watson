@@ -172,6 +172,14 @@ class HFModelBuilder:
             # Надежная заморозка: отключаем градиенты только у базового энкодера
             for param in model.base_model.parameters():
                 param.requires_grad = False
+                
+        elif self.finetuning_type == "head_and_pooler":
+            logger.info("Режим head_and_pooler: замораживаем всё кроме pooler и classifier.")
+            for name, param in model.named_parameters():
+                if "pooler" in name or "classifier" in name or "score" in name:
+                    param.requires_grad = True
+                else:
+                    param.requires_grad = False
 
         elif self.finetuning_type == "full":
             logger.info("Режим full: обучаем все веса модели.")

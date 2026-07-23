@@ -1,7 +1,0 @@
-# @package model
-
-model_name: "Babelscape/wikineural-multilingual-ner"
-
-builder:
-  auto_model_class: "transformers.AutoModelForSequenceClassification"
-  dtype: "float32"

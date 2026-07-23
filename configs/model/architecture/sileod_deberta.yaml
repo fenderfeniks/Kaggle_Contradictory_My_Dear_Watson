@@ -1,6 +1,6 @@
 # @package model
 
-model_name: "DeepPavlov/rubert-base-cased"
+model_name: "sileod/deberta-v3-base-tasksource-nli"
 
 builder:
   auto_model_class: "transformers.AutoModelForSequenceClassification"

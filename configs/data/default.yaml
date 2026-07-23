@@ -6,9 +6,9 @@ defaults:
 
 paths: ${paths}
 
-text_column: "premise"  
-text_pair_column: "hypothesis"   
-target_column: "label"   
+text_column: "premise"
+text_pair_column: "hypothesis"
+target_column: "label" 
 stratify_column: "label"
 max_length: 128
 val_split_size: 0.1
@@ -29,7 +29,8 @@ cleaner:
 collator:
   _target_: src.core.data.collators.DynamicTextCollator
   max_length: ${data.max_length}          
-  text_column: ${data.text_column}        
+  text_column: ${data.text_column}
+  text_pair_column: ${data.text_pair_column}    
   target_column: ${data.target_column}    
 
 # --- 4. Настройки DataLoader ---

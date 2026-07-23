@@ -16,7 +16,7 @@ trainer:
 data:
   max_length: 128 # Обрезаем длинные тексты
   dataloader:
-    batch_size: 4
+    batch_size: 8
     num_workers: 0 # Отключаем мультипроцессинг во избежание дедлоков в локальной ОС
 
 api:

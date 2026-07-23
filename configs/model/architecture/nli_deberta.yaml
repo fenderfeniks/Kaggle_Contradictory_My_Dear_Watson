@@ -1,6 +1,6 @@
 # @package model
 
-model_name: "google-bert/bert-base-multilingual-cased"
+model_name: "cross-encoder/nli-deberta-v3-base"
 
 builder:
   auto_model_class: "transformers.AutoModelForSequenceClassification"

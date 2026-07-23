@@ -9,3 +9,4 @@ peft_config:
   lora_dropout: 0.1
   bias: "none"
   task_type: "SEQ_CLS"
+  modules_to_save: ["classifier", "score", "pooler"]

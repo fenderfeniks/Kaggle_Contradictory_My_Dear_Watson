@@ -1,9 +1,9 @@
 # configs/model/default.yaml
 defaults:
   - _self_
-  - architecture: google_bert_mulitling
+  - architecture: nli_deberta
   # По умолчанию ставим обучение только головы, это самый частый и безопасный старт
-  - finetuning: lora
+  - finetuning: head_and_pooler
 
 model_name: ???
 
@@ -26,7 +26,7 @@ builder:
   peft_config: ${model.finetuning.peft_config}
   
   # Интеграция с MLflow
-  use_mlflow_registry: True
+  use_mlflow_registry: False
   mlflow_tracking_uri: ${logger.tracking_uri}
   mlflow_model_name: "watsonDetector"
   mlflow_model_alias: "Production"

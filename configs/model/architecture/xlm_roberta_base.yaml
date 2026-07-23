@@ -1,6 +1,6 @@
 # @package model
 
-model_name: "OpenMed/privacy-filter-multilingual"
+model_name: "symanto/sn-xlm-roberta-base-snli-mnli-anli-xnli"
 
 builder:
   auto_model_class: "transformers.AutoModelForSequenceClassification"

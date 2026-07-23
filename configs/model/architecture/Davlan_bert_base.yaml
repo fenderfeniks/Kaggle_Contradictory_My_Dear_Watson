@@ -1,7 +1,0 @@
-# @package model
-
-model_name: "Davlan/bert-base-multilingual-cased-ner-hrl"
-
-builder:
-  auto_model_class: "transformers.AutoModelForSequenceClassification"
-  dtype: "float32"

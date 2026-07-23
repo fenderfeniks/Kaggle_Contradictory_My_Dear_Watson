@@ -23,8 +23,14 @@ model_module:
   optimizer_cfg:
     _target_: torch.optim.AdamW
     _partial_: true
-    lr: 1e-3
+    lr: 1e-3 
     weight_decay: 0.01
+
+  scheduler_cfg: null
+    #_target_: transformers.get_linear_schedule_with_warmup
+    #num_warmup_steps: 50    
+    #num_training_steps: 500  
+    #_partial_: True
 
 # 2. Настройка DataModule
 datamodule:

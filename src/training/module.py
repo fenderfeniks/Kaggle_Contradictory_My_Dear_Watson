@@ -76,12 +76,12 @@ class NLPModel(pl.LightningModule):
         return outputs.loss
 
     def training_step(self, batch, batch_idx):
+
         outputs = self(**batch)
         loss = self._calculate_loss(outputs, batch["labels"])
 
         logits = outputs.logits
         preds = torch.argmax(logits, dim=1)
-
         self.train_metrics.update(preds, batch["labels"])
         self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         self.log_dict(self.train_metrics, on_step=False, on_epoch=True, prog_bar=True, logger=True)
@@ -174,12 +174,14 @@ class NLPModel(pl.LightningModule):
     def configure_optimizers(self):
         trainable_params = [p for p in self.model.parameters() if p.requires_grad]
 
+        # Вызываем как функцию, потому что это уже partial-объект
         optimizer = self.optimizer_cfg(params=trainable_params)
-
+        print(f"[DEBUG] Optimizer LR from cfg: {optimizer.param_groups[0]['lr']}")
         if self.scheduler_cfg is None:
             return optimizer
 
-        scheduler = instantiate(self.scheduler_cfg, optimizer=optimizer)
+        scheduler = self.scheduler_cfg(optimizer=optimizer)
+
         return {
             "optimizer": optimizer,
             "lr_scheduler": {"scheduler": scheduler, "interval": "step", "frequency": 1},

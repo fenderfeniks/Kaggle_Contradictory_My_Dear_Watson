@@ -42,6 +42,7 @@ class ModelModuleConfig:
     _target_: str
     num_classes: int
     optimizer_cfg: OptimizerConfig
+    scheduler_cfg: Any | None = None
     target_precision: float | None = None
     target_recall: float | None = None
     class_weights: list[float] | None = None
