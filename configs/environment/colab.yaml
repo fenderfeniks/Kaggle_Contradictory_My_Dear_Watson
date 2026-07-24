@@ -1,0 +1,22 @@
+# configs/environment/colab.yaml
+# @package _global_
+environment:
+  name: "colab"
+
+trainer:
+  max_epochs: 15
+  accelerator: gpu
+  devices: 1
+  precision: "16-mixed"  # bf16 не всегда поддерживается на T4/V100
+  limit_train_batches: 1.0
+  limit_val_batches: 1.0
+  limit_test_batches: 1.0
+
+data:
+  max_length: 128
+  dataloader:
+    batch_size: 16
+    num_workers: 2  # в Colab можно, дедлоков нет
+
+api:
+  log_level: INFO

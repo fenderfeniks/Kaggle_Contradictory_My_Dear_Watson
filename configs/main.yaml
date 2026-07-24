@@ -6,7 +6,7 @@ defaults:
   - trainer: default
   - logger: mlflow
   - api: fastapi
-  - environment: local
+  - environment: colab
   - _self_
 
 # Глобальные параметры
