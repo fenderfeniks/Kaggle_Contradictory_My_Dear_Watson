@@ -1,5 +1,5 @@
-# configs/environment/colab.yaml
 # @package _global_
+# configs/environment/colab.yaml
 environment:
   name: "colab"
 
