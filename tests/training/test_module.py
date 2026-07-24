@@ -17,13 +17,13 @@ import torch.nn as nn
 # ---------------------------------------------------------------------------
 
 
-class watsonSequenceClassificationOutput:
+class WatsonSequenceClassificationOutput:
     def __init__(self, logits, loss=None):
         self.logits = logits
         self.loss = loss
 
 
-class watsonEncoder(nn.Module):
+class WatsonEncoder(nn.Module):
     """Простейшая замена BERT — два линейных слоя."""
 
     def __init__(self, num_labels: int = 2):
@@ -38,12 +38,12 @@ class watsonEncoder(nn.Module):
         loss = None
         if labels is not None:
             loss = nn.CrossEntropyLoss()(logits, labels)
-        return watsonSequenceClassificationOutput(logits=logits, loss=loss)
+        return WatsonSequenceClassificationOutput(logits=logits, loss=loss)
 
 
 @pytest.fixture
 def watson_model():
-    return watsonEncoder(num_labels=2)
+    return WatsonEncoder(num_labels=2)
 
 
 @pytest.fixture

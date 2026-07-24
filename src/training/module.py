@@ -3,7 +3,6 @@ from typing import Any
 import matplotlib.pyplot as plt
 import pytorch_lightning as pl
 import torch
-from hydra.utils import instantiate
 from torchmetrics import MetricCollection
 from torchmetrics.classification import (
     MulticlassAccuracy,

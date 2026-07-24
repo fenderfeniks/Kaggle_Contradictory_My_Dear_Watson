@@ -4,19 +4,19 @@ environment:
 
 # Урезаем аппетиты трейнера для быстрых тестов кода
 trainer:
-  max_epochs: 3
+  max_epochs: 7
   accelerator: auto # Автоматический выбор CPU/MPS/GPU
   precision: "32-true"
   # Прогоняем только по 5-10 батчей за эпоху. Идеально для дебага!
-  limit_train_batches: 100
-  limit_val_batches: 20
-  limit_test_batches: 20
+  limit_train_batches: 500
+  limit_val_batches: 100
+  limit_test_batches: 100
 
 # Снижаем нагрузку на процессор и оперативную память
 data:
   max_length: 128 # Обрезаем длинные тексты
   dataloader:
-    batch_size: 8
+    batch_size: 16
     num_workers: 0 # Отключаем мультипроцессинг во избежание дедлоков в локальной ОС
 
 api:

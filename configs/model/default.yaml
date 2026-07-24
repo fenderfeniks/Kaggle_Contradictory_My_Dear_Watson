@@ -3,7 +3,7 @@ defaults:
   - _self_
   - architecture: nli_deberta
   # По умолчанию ставим обучение только головы, это самый частый и безопасный старт
-  - finetuning: head_and_pooler
+  - finetuning: lora
 
 model_name: ???
 
